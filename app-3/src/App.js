@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      unfilteredList: ['Aardavark' , 'Android' , 'Animal' , 'Apple'],
+      displayList: [],
+    }
+  }
+
+  processOnChange(e){
+    let filteredList = this.state.unfilteredList.filter((item) => item.includes(e))
+    this.setState({
+      displayList: filteredList
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input onChange={( e )=> this.processOnChange(e.target.value)} />
+        <h1>{this.state.displayList.map(item => <p>{item}</p>)}</h1>
       </div>
     );
   }
